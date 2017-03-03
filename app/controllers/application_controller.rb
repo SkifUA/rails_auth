@@ -13,8 +13,13 @@ class ApplicationController < ActionController::Base
     redirect_to '/login' unless current_user
   end
 
-  # check user by role editor
+  # check user by role editor or admin
   def require_editor
-    redirect_to '/' unless current_user.editor?
+    redirect_to '/' unless (current_user.editor? || current_user.admin?)
+  end
+
+  # check user by role admin
+  def require_admin
+    redirect_to '/' unless current_user.admin?
   end
 end
